@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- <security:http pattern="/" security="none" /> -->
+
+	<security:http use-expressions="false" entry-point-ref="loginEntryPoint"> <!-- auto-config="true" --> <!-- No longer autoconfigure needed -->
+	
+		<security:custom-filter ref="customFormLoginFilter" position="FORM_LOGIN_FILTER"/>
+		
+		<security:intercept-url
+			pattern="/appointments/**" access="ROLE_USER" />
+
+		<security:intercept-url pattern="/schedule/**"
+			access="ROLE_FOO" />
+
+		<security:intercept-url pattern="/**"
+			access="ROLE_ANONYMOUS,ROLE_USER,ROLE_FOO" />
+
+		<!-- Remove form login configuration as we are customizing Authentication Filter -->
+		<!-- <security:form-login login-page="/login"
+			login-processing-url="/login" username-parameter="custom_username"
+			password-parameter="custom_password"
+			default-target-url="/appointments" always-use-default-target="true"
+			authentication-failure-url="/login?error=1" /> -->
+			
+		
+
+		<security:logout logout-url="/logout"
+			logout-success-url="/login?logout=1" />
+
+	</security:http>
+
+	<!-- enable expressions for security taglibs -->
+	<bean
+		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
+	<!-- Custom form login filter -->
+	<bean id="customFormLoginFilter" class="com.oreilly.security.authenticationfilter.CustomAuthenticationFilter">
+		<property name="filterProcessesUrl" value="/login"/>
+		<property name="authenticationManager" ref="authenticationManager"/>
+		<property name="usernameParameter" value="custom_username"/> 
+  		<property name="passwordParameter" value="custom_password"/> 
+  		<property name="authenticationSuccessHandler"> 
+   		 	<bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler"> 
+      			<property name="defaultTargetUrl" value="/appointments"/>
+      			<property name="alwaysUseDefaultTargetUrl" value="true" />
+    		</bean> 
+  		</property> 
+  		<property name="authenticationFailureHandler"> 
+    		<bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"> 
+      			<property name="defaultFailureUrl" value="/login/?error=1"/>
+    		</bean> 
+  		</property> 
+	</bean>
+	
+	<bean id="loginEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<constructor-arg value="/login"/>
+	</bean>
+
+	<!-- Authentication manager -->
+	<security:authentication-manager alias="authenticationManager">
+
+		<security:authentication-provider ref="customAuthenticationProvider" />
+
+	</security:authentication-manager>
+
+
+</beans>

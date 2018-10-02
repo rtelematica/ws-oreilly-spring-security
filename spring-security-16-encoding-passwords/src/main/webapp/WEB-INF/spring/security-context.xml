@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- <security:http pattern="/" security="none" /> -->
+
+	<security:http auto-config="true" use-expressions="false">
+
+		<security:intercept-url
+			pattern="/appointments/**" access="ROLE_USER" />
+
+		<security:intercept-url pattern="/schedule/**"
+			access="ROLE_ADMIN" />
+
+		<security:intercept-url pattern="/**"
+			access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" />
+
+		<security:form-login login-page="/login"
+			login-processing-url="/login" username-parameter="custom_username"
+			password-parameter="custom_password"
+			default-target-url="/appointments" always-use-default-target="true"
+			authentication-failure-url="/login?error=1" />
+
+		<security:logout logout-url="/logout"
+			logout-success-url="/login?logout=1" />
+
+	</security:http>
+
+	<!-- enable expressions for security taglibs -->
+	<bean
+		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
+	<!-- Authentication manager -->
+	<security:authentication-manager>
+
+		<security:authentication-provider>
+		
+			<security:jdbc-user-service data-source-ref="datasource"
+				group-authorities-by-username-query="select g.id, g.group_name, ga.authority 
+														FROM 
+															groups g, group_members gm, group_authorities ga 
+														WHERE 
+															gm.username = ? and g.id = ga.group_id and g.id = gm.group_id"/>
+															
+			<security:password-encoder hash="sha-256" />
+		
+		</security:authentication-provider>
+
+	</security:authentication-manager>
+
+
+</beans>
