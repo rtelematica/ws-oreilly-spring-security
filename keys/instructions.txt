@@ -1,0 +1,4 @@
+keytool -genkey -alias tomcatoreilly -keypass password -keystore keystoretomcatoreilly.jks -storepass password -keyalg RSA -validity 360 -keysize 2048
+
+
+keytool command ^

@@ -1,0 +1,90 @@
+Users\Ivan Garcia\Desktop\Development\InfiniteSkills\Courses\Spring Security\Lessons\0300\0302 Basic XML Configuration\Basic XML Configuration
+   │
+   ├[src]
+   │   │
+   │   ├[main]
+   │   │   │
+   │   │   ├[java]
+   │   │   │   │
+   │   │   │   └[com]
+   │   │   │       │
+   │   │   │       └[oreilly]
+   │   │   │           │
+   │   │   │           └[security]
+   │   │   │               │
+   │   │   │               ├[domain]
+   │   │   │               │   │
+   │   │   │               │   ├[entities]
+   │   │   │               │   │   │
+   │   │   │               │   │   ├[util]
+   │   │   │               │   │   │   │
+   │   │   │               │   │   │   └LocalDateConverter
+   │   │   │               │   │   ├Appointment
+   │   │   │               │   │   ├Automobile
+   │   │   │               │   │   └AutoUser
+   │   │   │               │   └[repositories]
+   │   │   │               │       │
+   │   │   │               │       ├AppointmentRepository
+   │   │   │               │       └AutoUserRepository
+   │   │   │               └[web]
+   │   │   │                   │
+   │   │   │                   └[controllers]
+   │   │   │                       │
+   │   │   │                       ├AppointmentController
+   │   │   │                       └HomeController
+   │   │   ├[resources]
+   │   │   │   │
+   │   │   │   ├[META-INF]
+   │   │   │   │   │
+   │   │   │   │   └persistence
+   │   │   │   └log4j
+   │   │   └[webapp]
+   │   │       │
+   │   │       ├[resources]
+   │   │       │   │
+   │   │       │   ├[css]
+   │   │       │   │   │
+   │   │       │   │   ├bootstrap-multiselect
+   │   │       │   │   ├datepicker
+   │   │       │   │   └global
+   │   │       │   └[js]
+   │   │       │       │
+   │   │       │       ├appointments
+   │   │       │       ├bootstrap-datepicker
+   │   │       │       └bootstrap-multiselect
+   │   │       └[WEB-INF]
+   │   │           │
+   │   │           ├[spring]
+   │   │           │   │
+   │   │           │   ├application-context
+   │   │           │   ├dispatcher-servlet
+   │   │           │   └security-context
+   │   │           ├[views]
+   │   │           │   │
+   │   │           │   ├appointment
+   │   │           │   ├appointments
+   │   │           │   ├header
+   │   │           │   ├home
+   │   │           │   ├login
+   │   │           │   └services
+   │   │           └web
+   │   └[test]
+   │       │
+   │       ├[java]
+   │       │   │
+   │       │   └[com]
+   │       │       │
+   │       │       └[oreilly]
+   │       │           │
+   │       │           └[security]
+   │       │               │
+   │       │               └AutoUserTest
+   │       └[resources]
+   │           │
+   │           ├application-context
+   │           ├init
+   │           └log4j
+   ├
+   ├
+   ├
+   └pom
